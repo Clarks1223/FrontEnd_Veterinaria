@@ -25,7 +25,7 @@ export const Register = () => {
     //evita que se recarge automaticamente
     e.preventDefault();
     try {
-      const URL = 'https://veterinaria-clarks.onrender.com/api/registro';
+      const URL = `${import.meta.env.VITE_BACKEND_URL}/registro`;
       const respuesta = await axios.post(URL, form);
       setMensaje({ respuesta: respuesta.data.msg, tipo: true });
       setForm({});
