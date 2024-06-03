@@ -24,6 +24,43 @@ const AuthProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const actualizarPerfil = async (datos) => {
+    const token = localStorage.getItem('token');
+    try {
+      const URL = `${import.meta.env.VITE_BACKEND_URL}/veterinario/${datos.id}`;
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const respuesta = await axios.put(URL, datos, options);
+      perfil(token);
+      return { respuesta: respuesta.data.msg, tipo: true };
+    } catch (error) {
+      return { respuesta: error.response.data.msg, tipo: false };
+    }
+  };
+  const actualizarPassword = async (datos) => {
+    const token = localStorage.getItem('token');
+    try {
+      const URL = `${
+        import.meta.env.VITE_BACKEND_URL
+      }/veterinario/actualizarpassword`;
+      const options = {
+        headers: {
+          method: 'PUT',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const respuesta = await axios.put(URL, datos, options);
+      return { respuesta: respuesta.data.msg, tipo: true };
+    } catch (error) {
+      return { respuesta: error.response.data.msg, tipo: false };
+    }
+  };
+  
   useEffect(() => {
     //obtiene el token almacenado en el localStorage del navegador
     const token = localStorage.getItem('token');
@@ -37,6 +74,8 @@ const AuthProvider = ({ children }) => {
       value={{
         auth,
         setAuth,
+        actualizarPerfil,
+        actualizarPassword,
       }}
     >
       {children}
