@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import AuthContext from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Mensaje from './Alertas/Mensaje';
@@ -6,6 +7,7 @@ import Mensaje from './Alertas/Mensaje';
 export const Formulario = ({ paciente }) => {
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState({});
+  const { auth, actualizarPerfil } = useContext(AuthContext);
   const [form, setForm] = useState({
     nombre: paciente?.nombre ?? '',
     propietario: paciente?.propietario ?? '',
@@ -25,8 +27,7 @@ export const Formulario = ({ paciente }) => {
     e.preventDefault();
     if (paciente?._id) {
       const token = localStorage.getItem('token');
-      
-      const URL = `${import.meta.env.VITE_BACKEND_URL}//paciente/actualizar/${
+      const URL = `${import.meta.env.VITE_BACKEND_URL}/paciente/actualizar/${
         paciente?._id
       }`;
       const options = {
@@ -50,6 +51,7 @@ export const Formulario = ({ paciente }) => {
           },
         };
         await axios.post(URL, form, options);
+        console.log('envia a la api', URL);
         setMensaje({
           respuesta: 'Paciente agregado con exito, correo enviado',
           tipo: true,
@@ -75,7 +77,7 @@ export const Formulario = ({ paciente }) => {
           htmlFor="nombre:"
           className="text-gray-700 uppercase font-bold text-sm"
         >
-          Nombre de la mascota:{' '}
+          Nombre de la mascota:
         </label>
         <input
           id="nombre"
@@ -92,7 +94,7 @@ export const Formulario = ({ paciente }) => {
           htmlFor="propietario:"
           className="text-gray-700 uppercase font-bold text-sm"
         >
-          Nombre del propietario:{' '}
+          Nombre del propietario:
         </label>
         <input
           id="propietario"
@@ -109,7 +111,7 @@ export const Formulario = ({ paciente }) => {
           htmlFor="email:"
           className="text-gray-700 uppercase font-bold text-sm"
         >
-          Email:{' '}
+          Email:
         </label>
         <input
           id="email"
@@ -143,7 +145,7 @@ export const Formulario = ({ paciente }) => {
           htmlFor="convencional:"
           className="text-gray-700 uppercase font-bold text-sm"
         >
-          Convencional:{' '}
+          Convencional:
         </label>
         <input
           id="convencional"
@@ -177,7 +179,7 @@ export const Formulario = ({ paciente }) => {
           htmlFor="sintomas:"
           className="text-gray-700 uppercase font-bold text-sm"
         >
-          Síntomas:{' '}
+          Síntomas:
         </label>
         <textarea
           id="sintomas"

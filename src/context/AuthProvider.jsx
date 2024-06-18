@@ -17,7 +17,6 @@ const AuthProvider = ({ children }) => {
       };
       //solicitud get, se almacena en la constante respuesta
       const respuesta = await axios.get(URL, options);
-      console.log(`lo que llega como respuesta ${respuesta}`);
       //actualizo el auth
       setAuth(respuesta.data);
     } catch (error) {
