@@ -20,6 +20,8 @@ import { PrivateRoute } from './routes/PrivateRoute';
 import { TratamientosProvider } from './context/TratamientosProvider';
 //invocacion de protector de rutas
 import PrivateRouteWithRole from './routes/PrivateRouteWithRole';
+//importo la ruta del componente chat
+import Chat from './paginas/Chat';
 function App() {
   return (
     <>
@@ -59,6 +61,7 @@ function App() {
                           }
                         />
                         <Route path="actualizar/:id" element={<Actualizar />} />
+                        <Route path="chat" element={<Chat />} />
                       </Route>
                     </Routes>
                   </PrivateRoute>
