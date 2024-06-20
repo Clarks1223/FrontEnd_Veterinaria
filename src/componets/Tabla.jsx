@@ -1,16 +1,20 @@
 import { MdDeleteForever, MdNoteAdd, MdInfo } from 'react-icons/md';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Mensaje from './Alertas/Mensaje';
+import AuthContext from '../context/AuthProvider';
 
 const Tabla = () => {
+  const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [pacientes, setPacientes] = useState([]);
+
   const listarPacientes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const URL = `${import.meta.env.VITE_BACKEND_URL}/pacientes`;
+      const idSol = await auth._id;
+      const URL = `${import.meta.env.VITE_BACKEND_URL}/pacientes/${idSol}`;
       const options = {
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +55,7 @@ const Tabla = () => {
   };
   return (
     <>
-      {pacientes.length == 0 ? (
+      {pacientes.length === 0 ? (
         <Mensaje tipo={'active'}>{'No existen registros'}</Mensaje>
       ) : (
         <table className="w-full mt-5 table-auto shadow-lg  bg-white">
@@ -89,20 +93,23 @@ const Tabla = () => {
                     }}
                     className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
                   />
+                  {auth.rol === 'veterinario' && (
+                    <>
+                      <MdInfo
+                        onClick={() => {
+                          navigate(`/dashboard/actualizar/${paciente._id}`);
+                        }}
+                        className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
+                      />
 
-                  <MdInfo
-                    onClick={() => {
-                      navigate(`/dashboard/actualizar/${paciente._id}`);
-                    }}
-                    className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
-                  />
-
-                  <MdDeleteForever
-                    onClick={() => {
-                      handleDelete(paciente._id);
-                    }}
-                    className="h-7 w-7 text-red-900 cursor-pointer inline-block"
-                  />
+                      <MdDeleteForever
+                        onClick={() => {
+                          handleDelete(paciente._id);
+                        }}
+                        className="h-7 w-7 text-red-900 cursor-pointer inline-block"
+                      />
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

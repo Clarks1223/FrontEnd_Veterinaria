@@ -7,7 +7,10 @@ import ModalTratamiento from '../componets/Modals/ModalTratamiento';
 //para el context
 import TratamientosContext from '../context/TratamientosProvider';
 import TablaTratamientos from '../componets/TablaTratamientos';
+//importo el contexto
+import AuthContext from '../context/AuthProvider';
 const Visualizar = () => {
+  const { auth } = useContext(AuthContext);
   const { id } = useParams();
   const [paciente, setPaciente] = useState({});
   const [mensaje, setMensaje] = useState({});
@@ -136,12 +139,16 @@ const Visualizar = () => {
             <p>
               Este submódulo te permite visualizar los tratamientos del paciente
             </p>
-            <button
-              className="px-5 py-2 bg-green-800 text-white rounded-lg hover:bg-green-700"
-              onClick={handleModal}
-            >
-              Registrar
-            </button>
+            {auth.rol === 'veterinario' && (
+              <>
+                <button
+                  className="px-5 py-2 bg-green-800 text-white rounded-lg hover:bg-green-700"
+                  onClick={handleModal}
+                >
+                  Registrar
+                </button>
+              </>
+            )}
           </div>
           {modal && <ModalTratamiento idPaciente={paciente._id} />}
           {tratamientos.length == 0 ? (

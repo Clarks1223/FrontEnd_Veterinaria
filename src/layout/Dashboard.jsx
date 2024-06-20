@@ -23,8 +23,12 @@ const Dashboard = () => {
         />
         <p className="text-slate-400 text-center my-4 text-sm">
           {' '}
-          <span className="bg-green-600 w-3 h-3 inline-block rounded-full"></span>{' '}
-          Bienvenido - {auth?.nombre}
+          <span className="bg-green-600 w-3 h-3 inline-block rounded-full"></span>
+          Bienvenido -{' '}
+          {auth.rol === 'veterinario' ? auth.nombre : auth.propietario}
+        </p>
+        <p className="text-slate-400 text-center my-4 text-sm">
+          Rol - {auth?.rol}
         </p>
         <hr className="mt-5 border-slate-500" />
 
@@ -73,7 +77,8 @@ const Dashboard = () => {
       <div className="flex-1 flex flex-col justify-between h-screen bg-gray-100">
         <div className="bg-gray-800 py-2 flex md:justify-end items-center gap-5 justify-center">
           <div className="text-md font-semibold text-slate-100">
-            Bienvenido - {auth?.nombre}
+            Bienvenido -
+            {auth.rol === 'veterinario' ? auth.nombre : auth.propietario}
           </div>
           <div>
             <img

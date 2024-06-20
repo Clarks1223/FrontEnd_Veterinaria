@@ -15,8 +15,10 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const URL = form.password.includes('vet')
+      ? `${import.meta.env.VITE_BACKEND_URL}/paciente/login`
+      : `${import.meta.env.VITE_BACKEND_URL}/login`;
     try {
-      const URL = `${import.meta.env.VITE_BACKEND_URL}/login`;
       const respuesta = await axios.post(URL, form);
       localStorage.setItem('token', respuesta.data.token);
       setAuth(respuesta.data);
@@ -59,6 +61,7 @@ const Login = () => {
                 value={form.email || ''}
                 onChange={handleChange}
                 className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500"
+                autoComplete="username"
               />
             </div>
 
@@ -73,6 +76,7 @@ const Login = () => {
                 value={form.password || ''}
                 onChange={handleChange}
                 className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500"
+                autoComplete="current-password"
               />
             </div>
 

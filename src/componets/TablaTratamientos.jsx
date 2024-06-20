@@ -5,8 +5,10 @@ import {
 } from 'react-icons/md';
 import { useContext } from 'react';
 import TratamientosContext from '../context/TratamientosProvider';
+import AuthContext from '../context/AuthProvider';
 
 const TablaTratamientos = ({ tratamientos }) => {
+  const { auth } = useContext(AuthContext);
   const { handleDelete, handleStatus } = useContext(TratamientosContext);
   return (
     <table className="w-full mt-5 table-auto shadow-lg  bg-white">
@@ -36,17 +38,21 @@ const TablaTratamientos = ({ tratamientos }) => {
               </span>
             </td>
             <td className="py-2 text-center">
-              <MdPublishedWithChanges className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" />
+              {auth.rol === 'veterinario' && (
+                <>
+                  <MdPublishedWithChanges className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" />
 
-              <MdOutlineSecurityUpdateGood
-                className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
-                onClick={() => handleStatus(tratamiento._id)}
-              />
+                  <MdOutlineSecurityUpdateGood
+                    className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
+                    onClick={() => handleStatus(tratamiento._id)}
+                  />
 
-              <MdDeleteForever
-                className="h-8 w-8 text-red-900 cursor-pointer inline-block"
-                onClick={() => handleDelete(tratamiento._id)}
-              />
+                  <MdDeleteForever
+                    className="h-8 w-8 text-red-900 cursor-pointer inline-block"
+                    onClick={() => handleDelete(tratamiento._id)}
+                  />
+                </>
+              )}
             </td>
           </tr>
         ))}
