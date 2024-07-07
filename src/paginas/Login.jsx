@@ -87,13 +87,8 @@ const Login = () => {
             </div>
           </form>
 
-          <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
-            <hr className="border-gray-400" />
-            <p className="text-center text-sm">OR</p>
-            <hr className="border-gray-400" />
-          </div>
 
-          <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-black hover:text-white">
+          {/* <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-black hover:text-white">
             <img
               className="w-5 mr-2"
               src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
@@ -107,7 +102,7 @@ const Login = () => {
               src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
             />
             Sign in with Google
-          </button>
+          </button> */}
 
           <div className="mt-5 text-xs border-b-2 py-4 ">
             <Link
